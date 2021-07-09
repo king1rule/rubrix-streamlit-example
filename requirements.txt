@@ -3,3 +3,4 @@ pandas==1.2.2
 streamlit==0.78.0
 tokenizers==0.10.1
 transformers==4.3.3
+torch==1.9
