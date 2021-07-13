@@ -43,6 +43,6 @@ pip install -r requirements.txt
 After launching **Rubrix**, you can run this Streamlit app from the root directory with
 
 ```bash
-streamlit run docs/examples/streamlit-live/app.py
+streamlit run app.py
 ```
 
