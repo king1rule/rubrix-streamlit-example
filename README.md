@@ -1,11 +1,13 @@
 <p align="center">
-    <img src="docs/images/rubrix_logo.svg" alt="drawing" width="225"/>
+    <img src="https://raw.githubusercontent.com/recognai/rubrix/master/docs/images/rubrix_logo.svg" alt="drawing" width="225"/>
 </p>
 
 # Rubrix Streamlit demo app
-[Rubrix](https://github.com/recognai/rubrix) is a free and open-source tool for tracking, exploring, and labelling data for AI
+[Rubrix](https://github.com/recognai/rubrix) is a free and open-source tool for tracking, exploring, and labelling data for AI.
 
 This demo will show you how can Rubrix be integrated into third-party applications to collect predictions and user feedback. To do this, we are going to use streamlit, an amazing tool to turn Python scripts into beautiful web-apps.
+
+This is the example project described in the Rubrix docs guide ["Monitoring and collecting data from third-party apps"](https://docs.rubrix.ml/en/stable/guides/streamlit_guide.html).
 
 # Installing and launching Rubrix
 
