@@ -51,7 +51,7 @@ def main():
     st.markdown(
         """Lets make a quick experiment with a text classifier that guesses which theme a text is talking about.
         We are using a zero-shot classifier based on
-        [*SqueezeBERT*](https://huggingface.co/typeform/squeezebert-mnli)"""
+        [*distilbert-base-uncased-mnli*](https://huggingface.co/typeform/distilbert-base-uncased-mnli)"""
     )
 
     text_input = st.text_area(
@@ -216,7 +216,7 @@ def loading_model():
 
     return pipeline(
         "zero-shot-classification",
-        #model="typeform/squeezebert-mnli",
+        model="typeform/distilbert-base-uncased-mnli",
         framework="pt",
     )
 
