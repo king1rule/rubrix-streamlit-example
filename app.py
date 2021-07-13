@@ -28,11 +28,11 @@ CANDIDATE_LABELS = [
 
 def main():
 
-    st.image("rubrix_logo.svg")
+    st.image("logorubrix.png", width=200)
     # Header
     title, _, subtitle = st.beta_columns((2.5, 0.3, 0.7))
 
-    title.title("Monitoring and collecting NLP data from streamlit apps")
+    title.title("Monitoring and collecting NLP data from streamlit")
 
     with subtitle:
         st.write("")
@@ -83,7 +83,7 @@ def main():
         # Confidence threshold slider, changes the green categories in the graph and the categories shown
         # in the multiselect so users has the classes above the threshold as preanottations
         confidence_threshold = st.slider(
-            "We can select a threshold to decide which confidence must be obtained to consider it a prediction.",
+            "We can select a threshold to decide which confidence must be obtained to consider it a true label.",
             0.0,
             1.0,
             0.5,
@@ -136,12 +136,11 @@ def main():
             item = rb.TextClassificationRecord(
                 inputs={"text": text_input},
                 prediction=labels,
-                prediction_agent="typeform/squeezebert-mnli",
+                prediction_agent="typeform/distilbert-base-uncased-mnli",
                 annotation=selected_labels,
                 annotation_agent="streamlit-user",
                 multi_label=True,
                 event_timestamp=datetime.datetime.now(),
-                metadata={"model": "typeform/squeezebert-mnli"}
             )
 
             dataset_name = "multilabel_text_classification"
@@ -153,6 +152,34 @@ def main():
             st.markdown(
                 f"""Your data has been logged into Rubrix!"""
             )
+            df = rb.load(name=dataset_name)
+
+            df['num_annotations'] = df.annotation.apply(lambda x: len(x))
+
+            st.markdown(
+                """Below you can see what's been logged so far:"""
+            )
+            st.vega_lite_chart(df, {
+                    "width": 700,
+                    "mark": {"type": "bar", "color": "steelblue"},    
+                    "selection": {
+                        "grid": {
+                        "type": "interval", "bind": "scales"
+                        }
+                    }, 
+                    'encoding': {
+                        "tooltip": [
+                    {"field": "event_timestamp", "type": "temporal"},
+                    {'field': 'num_annotations', 'type': 'quantitative'},
+                    {'field': 'annotation', 'type': 'nominal'}
+
+                    ],
+                    'x': {'field': 'event_timestamp', 'type': 'temporal'},
+                    'y': {'field': 'num_annotations', 'type': 'quantitative'},
+                    },
+                }
+            )
+            st.write(df)
             # You can view your dataset in [{api_url}/{dataset_name}]({api_url}/{dataset_name}), which has logged this object right below:
             st.json(item.dict())
 
@@ -169,12 +196,11 @@ def main():
             item = rubrix.TextClassificationRecord(
                 inputs={"text": text_input},
                 prediction=labels,
-                prediction_agent="typeform/squeezebert-mnli",
+                prediction_agent="typeform/distilbert-base-uncased-mnli",
                 annotation=selected_labels,
                 annotation_agent="streamlit-user",
                 multi_label=True,
                 event_timestamp=datetime.datetime.now(),
-                metadata={"model": "typeform/squeezebert-mnli"}
             )
 
             rubrix.log(name="experiment_name", records=item)
