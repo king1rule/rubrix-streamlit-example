@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/images/rubrix_logo.svg" alt="drawing" width="225"/>
+    <img src="https://raw.githubusercontent.com/recognai/rubrix/master/docs/images/rubrix_logo.svg" alt="drawing" width="225"/>
 </p>
 
 # Rubrix Streamlit demo app
