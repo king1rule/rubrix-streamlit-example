@@ -37,7 +37,7 @@ def main():
     with subtitle:
         st.write("")
 
-    subtitle.subheader("A Web App made with [Rubrix](https://www.rubrix.ml)")
+    subtitle.subheader("A Web App using [Rubrix](https://www.rubrix.ml)")
 
     classifier = loading_model()  # Chached function, loading on top of the app
 
