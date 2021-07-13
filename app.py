@@ -28,27 +28,28 @@ CANDIDATE_LABELS = [
 
 def main():
 
-    classifier = loading_model()  # Chached function, loading on top of the app
-
+    st.image("rubrix_logo.svg")
     # Header
     title, _, subtitle = st.beta_columns((2.5, 0.3, 0.7))
 
-    title.title("How to log your ML experiments and annotations with Rubrix")
+    title.title("Monitoring and collecting NLP data from streamlit apps")
 
     with subtitle:
         st.write("")
 
-    subtitle.subheader("A Web App by [Recognai](https://www.recogn.ai)")
+    subtitle.subheader("A Web App made with [Rubrix](https://www.rubrix.ml)")
+
+    classifier = loading_model()  # Chached function, loading on top of the app
 
     # First text body
     st.markdown("")  # empty space
     st.markdown(
         """Hey there, welcome! This demo will show you how to keep track of your
-        live model predictions using Rubrix.
+        live model predictions and collecting in-app feedback using Rubrix.
         """
     )
     st.markdown(
-        """Lets make a quick experiment: an NLP model that guesses which theme a text is talking about.
+        """Lets make a quick experiment with a text classifier that guesses which theme a text is talking about.
         We are using a zero-shot classifier based on
         [*SqueezeBERT*](https://huggingface.co/typeform/squeezebert-mnli)"""
     )
@@ -150,10 +151,9 @@ def main():
             api_url = os.getenv("RUBRIX_API_URL", "http://localhost:6900")
             # Pretty-print of the logged item
             st.markdown(
-                f"""Your data has been logged! You can view your dataset in
-                 [{api_url}/{dataset_name}]({api_url}/{dataset_name}),
-                which has logged this object right below:"""
+                f"""Your data has been logged into Rubrix!"""
             )
+            # You can view your dataset in [{api_url}/{dataset_name}]({api_url}/{dataset_name}), which has logged this object right below:
             st.json(item.dict())
 
             st.markdown(
@@ -210,13 +210,13 @@ def populating_predictions(input_df, threshold):
     return predictions_output
 
 
-@st.cache(suppress_st_warning=True, allow_output_mutation=True, show_spinner=False)
+@st.cache(suppress_st_warning=True, allow_output_mutation=True, show_spinner=True)
 def loading_model():
     """Loading of the zero-shot classifier. Passed to a function to include cache decorator"""
 
     return pipeline(
         "zero-shot-classification",
-        model="typeform/squeezebert-mnli",
+        #model="typeform/squeezebert-mnli",
         framework="pt",
     )
 
